@@ -7,46 +7,50 @@ on:
       - main  # Executa quando há push na branch main
 
 jobs:
-  # Job que executa o npm audit ao fazer merge na branch dev
   audit_dev:
     if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
         with:
-          node-version: '20'
+          fetch-depth: 0  
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci  # Instala as dependências do projeto
       - name: Run npm audit
-        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades de nível alto ou superior
+        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades graves
       - name: Merge to main
-        if: success()  # Se o npm audit passar
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Usa o token padrão para fazer o push
         run: |
-          git config --global user.name "GitHub Actions"
+          git config --global user.name "rafaelwollace"
           git config --global user.email "rafael.cunha@gmail.com"
-          git checkout main
-          git merge dev
-          git push origin main
+          git checkout main  # Certificar-se de que estamos na branch main
+          git merge dev      # Faz o merge da dev para main
+          git push origin main  # Faz o push para a branch main
 
-  # Job que roda o npm audit e faz o deploy ao fazer merge na branch main
   deploy_to_s3:
-    needs: audit_dev  # Garante que o job de audit_dev seja executado antes
+    needs: audit_dev
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
         with:
-          node-version: '20'
+          fetch-depth: 0  # Garantir que todas as branches sejam trazidas
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Atualizar para a versão do Node.js que você deseja usar
       - name: Install dependencies
-        run: npm ci
+        run: npm ci  # Instala as dependências do projeto
       - name: Run npm audit
-        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades de nível alto ou superior
+        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades graves
       - name: Build the project
-        run: npm run build  # Cria o build da aplicação (dist/ para Vite)
+        run: npm run build  # Cria o build da aplicação (Vite gera na pasta dist/)
       - name: Deploy to S3
         run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
         env:
