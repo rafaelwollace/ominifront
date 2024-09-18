@@ -25,7 +25,7 @@ jobs:
       - name: Create Pull Request from dev to main
         if: success()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Usa o token padrão para criar a PR
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         run: |
           git config --global user.name "rafaelwollace"
           git config --global user.email "rafael.cunha@gmail.com"
