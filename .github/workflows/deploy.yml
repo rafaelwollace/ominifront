@@ -22,19 +22,16 @@ jobs:
         run: npm ci  # Instala as dependências do projeto
       - name: Run npm audit
         run: npm audit --audit-level=high  # Falha se houver vulnerabilidades graves
-      - name: Merge dev to main
+      - name: Create Pull Request from dev to main
         if: success()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Usa o token padrão para fazer o push
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Usa o token padrão para criar a PR
         run: |
           git config --global user.name "rafaelwollace"
           git config --global user.email "rafael.cunha@gmail.com"
-          git checkout main  # Certificar-se de que estamos na branch main
-          git merge dev      # Faz o merge da dev para main
-          git push origin main  # Faz o push para a branch main
+          gh pr create --title "Merge dev to main" --body "PR criada automaticamente após passar no npm audit." --base main --head dev
 
   deploy_to_s3:
-    needs: audit_dev
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
