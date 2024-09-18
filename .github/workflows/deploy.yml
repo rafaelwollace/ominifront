@@ -13,19 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  
+          fetch-depth: 0  # Garantir que todas as branches sejam trazidas
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
       - name: Install dependencies
-        run: npm ci  
+        run: npm ci  # Instala as dependências do projeto
       - name: Run npm audit
-        run: npm audit --audit-level=high 
+        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades graves
       - name: Merge to main
         if: success()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Usa o token padrão para fazer o push
         run: |
           git config --global user.name "rafaelwollace"
           git config --global user.email "rafael.cunha@gmail.com"
