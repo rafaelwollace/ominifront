@@ -21,11 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm ci  
       - name: Run npm audit
-        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades graves
+        run: npm audit --audit-level=high 
       - name: Merge to main
         if: success()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Usa o token padrão para fazer o push
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "rafaelwollace"
           git config --global user.email "rafael.cunha@gmail.com"
