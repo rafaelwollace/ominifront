@@ -5,6 +5,7 @@ on:
     branches:
       - dev  # Executa quando há push na branch dev
       - main  # Executa quando há push na branch main
+
 jobs:
   audit_dev:
     if: github.ref == 'refs/heads/dev'
@@ -18,17 +19,19 @@ jobs:
         with:
           node-version: '18'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci  # Instala as dependências do projeto
       - name: Run npm audit
-        run: npm audit --audit-level=high
+        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades graves
       - name: Merge to main
         if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Usa o token padrão para fazer o push
         run: |
           git config --global user.name "rafaelwollace"
           git config --global user.email "rafael.cunha@gmail.com"
-          git checkout main  # Certificar-se de que estamos fazendo checkout da branch main
-          git merge dev
-          git push origin main
+          git checkout main  # Certificar-se de que estamos na branch main
+          git merge dev      # Faz o merge da dev para main
+          git push origin main  # Faz o push para a branch main
 
   deploy_to_s3:
     needs: audit_dev
@@ -41,13 +44,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18'  # Atualizar para a versão do Node.js que você deseja usar
       - name: Install dependencies
-        run: npm ci
+        run: npm ci  # Instala as dependências do projeto
       - name: Run npm audit
-        run: npm audit --audit-level=high
+        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades graves
       - name: Build the project
-        run: npm run build
+        run: npm run build  # Cria o build da aplicação (Vite gera na pasta dist/)
       - name: Deploy to S3
         run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
         env:
