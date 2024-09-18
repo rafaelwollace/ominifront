@@ -25,7 +25,7 @@ jobs:
         if: success()  # Se o npm audit passar
         run: |
           git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config --global user.email "rafael.cunha@gmail.com"
           git checkout main
           git merge dev
           git push origin main
