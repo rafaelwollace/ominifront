@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "useDefineForClassFields": true,
+    "allowImportingTsExtensions": true,
     "lib": [
       "dom",
       "dom.iterable",
