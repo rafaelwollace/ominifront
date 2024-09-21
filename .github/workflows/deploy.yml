@@ -19,9 +19,9 @@ jobs:
         with:
           node-version: '18'
       - name: Install dependencies
-        run: npm ci  # Instala as dependências do projeto
+        run: npm ci  
       - name: Run npm audit
-        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades graves
+        run: npm audit --audit-level=high  
       - name: Create Pull Request from dev to main
         if: success()
         env:
@@ -37,17 +37,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Garantir que todas as branches sejam trazidas
+          fetch-depth: 0  
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
       - name: Install dependencies
-        run: npm ci  # Instala as dependências do projeto
+        run: npm ci  
       - name: Run npm audit
-        run: npm audit --audit-level=high  # Falha se houver vulnerabilidades graves
+        run: npm audit --audit-level=high  
       - name: Build the project
-        run: npm run build  # Cria o build da aplicação (Vite gera na pasta dist/)
+        run: npm run build  
       - name: Deploy to S3
         run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
         env:

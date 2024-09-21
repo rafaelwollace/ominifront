@@ -8,13 +8,13 @@ import { createCustomer, updateCustomer } from "../utils/Apis";
 import { ICustomerFormData } from "../interface/ICustomerFormData";
 
 interface CustomerFormProps {
-  onCustomerAdded: () => void; // Função para atualizar a CustomerTable
-  customerToEdit?: ICustomerFormData; // Prop para editar cliente
+  onCustomerAdded: () => void; 
+  customerToEdit?: ICustomerFormData; 
 }
 
 const CustomerForm: React.FC<CustomerFormProps> = ({
   onCustomerAdded,
-  customerToEdit, // Recebe o cliente a ser editado
+  customerToEdit, 
 }) => {
   const [formData, setFormData] = useState<ICustomerFormData>({
     id: undefined,
@@ -34,15 +34,14 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   const [errors, setErrors] = useState<string[]>([]);
   const toast = useRef<Toast>(null);
 
-  // Efeito para preencher o formulário ao editar cliente
   useEffect(() => {
     if (customerToEdit) {
-      setFormData(customerToEdit); // Preenche o formulário com os dados do cliente
+      setFormData(customerToEdit); 
     }
   }, [customerToEdit]);
 
   const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cep = e.target.value.replace(/\D/g, "").slice(0, 8); // Limita a entrada a 8 caracteres numéricos
+    const cep = e.target.value.replace(/\D/g, "").slice(0, 8); 
     setFormData((prevState) => ({ ...prevState, cep }));
 
     if (cep.length === 8) {
@@ -107,7 +106,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
 
     try {
       if (formData.id) {
-        // Se houver um ID, significa que estamos editando o cliente
         await updateCustomer(formData.id, customerData);
         toast.current?.show({
           severity: "success",
@@ -115,7 +113,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
           life: 3000,
         });
       } else {
-        // Caso contrário, estamos criando um novo cliente
         await createCustomer(customerData);
         toast.current?.show({
           severity: "success",
@@ -140,7 +137,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         neighborhood: "",
       });
 
-      onCustomerAdded(); // Chama a função para atualizar a tabela de clientes
+      onCustomerAdded();
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const errorMsg = err.response?.data?.message || [
@@ -312,7 +309,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         />
       </form>
 
-      {/* Exibir as mensagens de erro abaixo do formulário */}
       {errors.length > 0 && (
         <div className="alert alert-danger mt-3">
           <ul>
