@@ -1,50 +1,53 @@
-# React + TypeScript + Vite
+# Omnifront
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositório contém a aplicação frontend desenvolvida com React.js.
 
-Currently, two official plugins are available:
+## 🚀 Instruções de Instalação
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Clone o repositório
 
-## Expanding the ESLint configuration
+Clone o repositório em sua máquina local com o seguinte comando:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+git clone https://github.com/rafaelwollace/ominifront.git
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 2. Configuração do arquivo `.env`
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Após clonar o projeto, edite o arquivo `.env`, localizado na raiz do projeto, e insira a url do seu banco:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+VITE_BASE_URL=
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+
+### 3. Rodar o Docker
+
+Com o Docker já instalado na sua máquina, execute o seguinte comando na raiz do projeto para iniciar a aplicação:
+
+docker-compose up -d --build
+
+Este comando irá construir e iniciar o container em segundo plano.
+
+### 4. Acessar o Backend
+
+Após a execução do Docker, o backend estará disponível em:
+
+- [http://localhost:3000](http://localhost:3000) ou através do IP da sua máquina.
+
+---
+
+## 🌐 Frontend
+
+O frontend da aplicação está disponível publicamente em:
+
+- [http://ommininfront.s3.us-east-2.amazonaws.com/index.html](http://ommininfront.s3.us-east-2.amazonaws.com/index.html)
+
+---
+
+## 📦 Processo de Deploy Automatizado
+
+Este projeto utiliza um processo de deploy automatizado para o frontend e backend com base em branches de desenvolvimento.
+
+### Fluxo de Deploy:
+
+1. **Criar branch de feature**: Nenhuma ação automática é executada neste momento.
+2. **Merge para a branch `dev`**: Após o merge, o pipeline roda o comando `npm audit`. Se o `npm audit` passar sem vulnerabilidades, uma Pull Request (PR) é criada automaticamente para a branch `main`, que deve ser revisada e aceita manualmente.
+3. **Merge na branch `main`**: Após a PR ser aceita na `main`, o deploy é realizado automaticamente, enviando os arquivos para o bucket S3 configurado para o frontend.

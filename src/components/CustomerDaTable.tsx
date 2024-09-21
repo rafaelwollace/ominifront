@@ -20,7 +20,6 @@ const CustomerTable: React.FC<CustomerTableProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const toast = React.useRef<Toast>(null);
 
-  // Função para carregar clientes
   const loadCustomers = async () => {
     try {
       setLoading(true);
@@ -33,7 +32,6 @@ const CustomerTable: React.FC<CustomerTableProps> = ({
     }
   };
 
-  // Função para remover cliente
   const removeCustomer = async (id?: number) => {
     if (!id) {
       showToast("error", "Erro", "ID inválido para exclusão");
@@ -43,19 +41,18 @@ const CustomerTable: React.FC<CustomerTableProps> = ({
     try {
       await deleteCustomer(id);
       showToast("success", "Sucesso", "Cliente removido com sucesso!");
-      loadCustomers(); // Atualiza a lista após exclusão
+      loadCustomers(); 
     } catch (error) {
       handleError(error, "Erro ao remover cliente");
     }
   };
 
-  // Função de template para ações (editar e excluir)
   const actionBodyTemplate = (rowData: ICustomerFormData) => (
     <div style={{ display: "flex", gap: "0.5rem" }}>
       <Button
         icon="pi pi-pencil"
         className="p-button-rounded p-button-warning"
-        onClick={() => onEditCustomer(rowData)} // Chama o callback de edição
+        onClick={() => onEditCustomer(rowData)} 
       />
       <Button
         icon="pi pi-trash"
@@ -65,7 +62,6 @@ const CustomerTable: React.FC<CustomerTableProps> = ({
     </div>
   );
 
-  // Exibir toast com mensagens de erro ou sucesso
   const showToast = (
     severity: "success" | "info" | "warn" | "error",
     summary: string,
@@ -79,7 +75,6 @@ const CustomerTable: React.FC<CustomerTableProps> = ({
     });
   };
 
-  // Tratamento de erros
   const handleError = (error: unknown, defaultMessage: string) => {
     const err = error as AxiosError<{ message: string[] | string }>;
     const errorMessage = err.response?.data?.message || defaultMessage;
@@ -91,7 +86,6 @@ const CustomerTable: React.FC<CustomerTableProps> = ({
     );
   };
 
-  // Efeito para carregar os clientes e atualizar ao adicionar um novo
   useEffect(() => {
     loadCustomers();
   }, [customerAdded]);

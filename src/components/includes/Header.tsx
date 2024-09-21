@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/logo.png"; // Certifique-se de que o caminho para a logo está correto.
+import logo from "../../assets/logo.png"; 
 
 const Header: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const Header: React.FC = () => {
               src={logo}
               alt="Logo"
               style={{
-                height: "40px", // Ajuste conforme necessário
+                height: "40px", 
                 width: "auto",
               }}
             />
