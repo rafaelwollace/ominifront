@@ -1,0 +1,15 @@
+
+A solução deve ser disponibilizada em Cloud ou On-premise?
+Cloud, pela escalabilidade, flexibilidade e suporte a integrações com múltiplos canais de maneira eficiente, poderia utilizar micro serviços.
+
+Considerando a participação de 4 pessoas técnicas para o desenvolvimento dessa solução, responda qual ferramenta acreditas ser apropriada para o controle de tarefas da equipe, a ferramenta é ágil?
+O ClickUp é uma ferramenta apropriada, sim, pois é ágil e facilita o acompanhamento de tarefas, priorização e colaboração em equipe.
+
+Você se sente capaz de liderar esta equipe? Por quê?
+Sim, devido à minha experiência de 12 anos como desenvolvedor full-stack e atual função como Tech Lead, com capacidade de coordenar times e projetos.
+
+Se pudesse sugerir uma melhoria, mudança ou oportunidade. O que seria?
+Investir em automação de processos de integração contínua e entrega contínua (CI/CD) para aumentar a eficiência do time e reduzir o tempo de entrega de novas funcionalidades.
+
+Acha válido esse desafio para o processo que está participando?
+Sim, o desafio é válido pois reflete situações reais de implementação de soluções complexas de Omnichannel, exigindo habilidades técnicas e de liderança.
