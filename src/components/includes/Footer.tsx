@@ -4,8 +4,8 @@ const Footer: React.FC = () => {
   return (
     <footer
       style={{
-        backgroundColor: "#2a2b60", // Mesma cor do header
-        color: "white", // Cor da fonte branca
+        backgroundColor: "#2a2b60", 
+        color: "white", 
         textAlign: "center",
         padding: "1rem 0",
       }}

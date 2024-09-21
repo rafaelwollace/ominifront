@@ -14,12 +14,10 @@ const App: React.FC = () => {
     ICustomerFormData | undefined
   >(undefined);
 
-  // Função para alternar o estado de adição de cliente
   const handleCustomerAdded = () => {
     setCustomerAdded((prev) => !prev);
   };
 
-  // Função para editar cliente
   const handleEditCustomer = (customer: ICustomerFormData) => {
     setCustomerToEdit(customer);
   };
@@ -34,13 +32,13 @@ const App: React.FC = () => {
           <div className="col-md-6">
             <CustomerForm
               onCustomerAdded={handleCustomerAdded}
-              customerToEdit={customerToEdit} // Passe o cliente para edição
+              customerToEdit={customerToEdit} 
             />
           </div>
           <div className="col-md-6">
             <CustomerTable
               customerAdded={customerAdded}
-              onEditCustomer={handleEditCustomer} // Passe a função para editar cliente
+              onEditCustomer={handleEditCustomer} 
             />
           </div>
         </div>
